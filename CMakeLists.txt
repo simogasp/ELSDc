@@ -54,7 +54,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 # compile options for all targets depending on the compiler and the system
 if(CMAKE_C_COMPILER_ID MATCHES "Clang|GNU")
-    set(ELSDC_COMPILE_OPTIONS "-Wall;-Wextra;-pedantic;-Wno-comment;-Wshadow;-Wnon-virtual-dtor;-Wpedantic;-Wconversion;-Wmisleading-indentation;-Wsign-conversion;-Wfloat-equal")
+    set(ELSDC_COMPILE_OPTIONS "-Wall;-Wextra;-pedantic;-Wno-comment;-Wshadow;-Wpedantic;-Wconversion;-Wmisleading-indentation;-Wsign-conversion;-Wfloat-equal")
     if(ELSDC_BUILD_WITH_COVERAGE)
         list(APPEND ELSDC_COMPILE_OPTIONS "--coverage")
     endif()
