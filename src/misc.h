@@ -30,6 +30,18 @@
 /** Useful constants and macros.
  */
 
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L
+  #define NORETURN [[noreturn]]
+#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
+  #define NORETURN _Noreturn
+#elif defined(__GNUC__) || defined(__clang__)
+  #define NORETURN __attribute__((noreturn))
+#elif defined(_MSC_VER)
+  #define NORETURN __declspec(noreturn)
+#else
+  #define NORETURN
+#endif
+
 #ifndef M_LN10
 #define M_LN10 2.30258509299404568402
 #endif /* !M_LN10 */
@@ -38,15 +50,28 @@
 #define M_PI   3.14159265358979323846
 #endif /* !M_PI */
 
-#ifndef FALSE
-#define FALSE 0
-#endif /* !FALSE */
+/* Boolean type and values */
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L
+  /* C23: true/false are keywords, but TRUE/FALSE for legacy code */
+  #define TRUE true
+  #define FALSE false
+#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+  /* C99/C11/C17: use stdbool.h */
+  #include <stdbool.h>
+  #define TRUE true
+  #define FALSE false
+#else
+  /* Pre-C99: define manually */
+  #ifndef FALSE
+  #define FALSE 0
+  #endif
+  #ifndef TRUE
+  #define TRUE 1
+  #endif
+  typedef int bool;
+#endif
 
-#ifndef TRUE
-#define TRUE 1
-#endif /* !TRUE */
-
-#define NOTDEF         -1024.0
+#define NOTDEF         (-1024.0)
 #define M_3_2_PI       4.71238898038
 #define M_1_2_PI       1.57079632679
 #define M_2__PI        6.28318530718
@@ -57,6 +82,9 @@
 #define NOTUSED 0
 #define USED 1
 
+/* WARNING: These macros evaluate arguments multiple times.
+ * Do NOT use with side effects: max(x++, y) or max(func(), 5)
+ * For floating-point, consider fmax()/fmin() from <math.h> */
 #define max(A, B) (((A)>(B))?(A):(B))
 #define min(A, B) (((A)<(B))?(A):(B))
 
@@ -79,7 +107,7 @@ typedef struct
 
 
 /* various function prototypes */
-void error( char *msg );
+NORETURN void error( char *msg );
 int double_equal( double a, double b);
 int sign( double val );
 double dist( double x1, double y1, double x2, double y2 );
