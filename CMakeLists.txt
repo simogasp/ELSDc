@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.18)
 if(CMAKE_VERSION GREATER_EQUAL 3.31)
     cmake_policy(SET CMP0177 NEW) # install destination
 endif ()
@@ -54,7 +54,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 # compile options for all targets depending on the compiler and the system
 if(CMAKE_C_COMPILER_ID MATCHES "Clang|GNU")
-    set(ELSDC_COMPILE_OPTIONS "-Wall;-Wextra;-pedantic;-Wno-comment;-Wshadow;-Wnon-virtual-dtor;-Wpedantic;-Wconversion;-Wmisleading-indentation;-Wsign-conversion;-Wfloat-equal")
+    set(ELSDC_COMPILE_OPTIONS "-Wall;-Wextra;-pedantic;-Wno-comment;-Wshadow;-Wpedantic;-Wconversion;-Wmisleading-indentation;-Wsign-conversion;-Wfloat-equal")
     if(ELSDC_BUILD_WITH_COVERAGE)
         list(APPEND ELSDC_COMPILE_OPTIONS "--coverage")
     endif()
@@ -84,6 +84,7 @@ if(BUILD_SHARED_LIBS)
     endif()
 endif()
 
+find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 
 # Generate version header
@@ -133,7 +134,7 @@ target_include_directories(elsdc PUBLIC
     $<BUILD_INTERFACE:${ELSDC_generated_dir}>
     $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(elsdc PRIVATE LAPACK::LAPACK)
+target_link_libraries(elsdc PUBLIC BLAS::BLAS LAPACK::LAPACK)
 target_compile_features(elsdc PRIVATE ${ELSDC_C_FEATURE})
 target_compile_definitions(elsdc PRIVATE ${ELSDC_COMPILE_DEFINITIONS})
 target_compile_options(elsdc PRIVATE ${ELSDC_COMPILE_OPTIONS})
@@ -147,7 +148,7 @@ add_library(${ELSDC_namespace}elsdc ALIAS elsdc)
 
 if(ELSDC_BUILD_APP)
     add_executable(elsdc_main src/main.c)
-    target_link_libraries(elsdc_main PRIVATE elsdc)
+    target_link_libraries(elsdc_main PRIVATE elsdc )
     target_compile_features(elsdc_main PRIVATE ${ELSDC_C_FEATURE})
     target_compile_definitions(elsdc_main PRIVATE ${ELSDC_COMPILE_DEFINITIONS})
     target_compile_options(elsdc_main PRIVATE ${ELSDC_COMPILE_OPTIONS})

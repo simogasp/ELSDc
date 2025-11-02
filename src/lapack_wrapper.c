@@ -49,12 +49,14 @@ void lap_eig( double *A, int n )
   char uplo = 'U';
   integer M = (integer)n;
   integer LDA = M;
-  integer LWORK = 24;
+  // windows does not support variable length arrays
+  #define LWORK 24
+  integer lwork = LWORK;
   integer INFO;
   doublereal W[6];
   doublereal WORK[LWORK];
 
   /* Solve eigenproblem */
-  dsyev_( &jobz, &uplo, &M, (doublereal*)A, &LDA, W, WORK, &LWORK, &INFO ); 
+  dsyev_( &jobz, &uplo, &M, (doublereal*)A, &LDA, W, WORK, &lwork, &INFO );
 }
 
