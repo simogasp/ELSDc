@@ -84,6 +84,7 @@ if(BUILD_SHARED_LIBS)
     endif()
 endif()
 
+find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 
 # Generate version header
@@ -133,7 +134,7 @@ target_include_directories(elsdc PUBLIC
     $<BUILD_INTERFACE:${ELSDC_generated_dir}>
     $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(elsdc PUBLIC LAPACK::LAPACK)
+target_link_libraries(elsdc PUBLIC BLAS::BLAS LAPACK::LAPACK)
 target_compile_features(elsdc PRIVATE ${ELSDC_C_FEATURE})
 target_compile_definitions(elsdc PRIVATE ${ELSDC_COMPILE_DEFINITIONS})
 target_compile_options(elsdc PRIVATE ${ELSDC_COMPILE_OPTIONS})
