@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.18)
 if(CMAKE_VERSION GREATER_EQUAL 3.31)
     cmake_policy(SET CMP0177 NEW) # install destination
 endif ()
