@@ -82,6 +82,9 @@
 #define NOTUSED 0
 #define USED 1
 
+/* WARNING: These macros evaluate arguments multiple times.
+ * Do NOT use with side effects: max(x++, y) or max(func(), 5)
+ * For floating-point, consider fmax()/fmin() from <math.h> */
 #define max(A, B) (((A)>(B))?(A):(B))
 #define min(A, B) (((A)<(B))?(A):(B))
 
