@@ -1,6 +1,8 @@
 ELSDc: Ellipse and Line Segment Detector, with Continuous validation
 ====================================================================
 
+[![CI-Build-with-vcpkg](https://github.com/simogasp/ELSDc/actions/workflows/build_ci_with_vcpkg.yml/badge.svg)](https://github.com/simogasp/ELSDc/actions/workflows/build_ci_with_vcpkg.yml) [![CodeQL](https://github.com/simogasp/ELSDc/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/simogasp/ELSDc/actions/workflows/github-code-scanning/codeql) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/cf50885678e9408fb988ac7389b38fab)](https://app.codacy.com/gh/simogasp/ELSDc/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 V. Patraucean, P. Gurdjos, R. Grompone von Gioi  
 (Corresponding author: Viorica Patraucean vpatrauc@gmail.com)  
 Version 0.9, March 2015
