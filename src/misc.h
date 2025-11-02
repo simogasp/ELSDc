@@ -30,6 +30,18 @@
 /** Useful constants and macros.
  */
 
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L
+  #define NORETURN [[noreturn]]
+#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
+  #define NORETURN _Noreturn
+#elif defined(__GNUC__) || defined(__clang__)
+  #define NORETURN __attribute__((noreturn))
+#elif defined(_MSC_VER)
+  #define NORETURN __declspec(noreturn)
+#else
+  #define NORETURN
+#endif
+
 #ifndef M_LN10
 #define M_LN10 2.30258509299404568402
 #endif /* !M_LN10 */
@@ -79,7 +91,7 @@ typedef struct
 
 
 /* various function prototypes */
-void error( char *msg );
+NORETURN void error( char *msg );
 int double_equal( double a, double b);
 int sign( double val );
 double dist( double x1, double y1, double x2, double y2 );
