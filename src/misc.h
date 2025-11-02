@@ -50,13 +50,26 @@
 #define M_PI   3.14159265358979323846
 #endif /* !M_PI */
 
-#ifndef FALSE
-#define FALSE 0
-#endif /* !FALSE */
-
-#ifndef TRUE
-#define TRUE 1
-#endif /* !TRUE */
+/* Boolean type and values */
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L
+  /* C23: true/false are keywords, but TRUE/FALSE for legacy code */
+  #define TRUE true
+  #define FALSE false
+#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+  /* C99/C11/C17: use stdbool.h */
+  #include <stdbool.h>
+  #define TRUE true
+  #define FALSE false
+#else
+  /* Pre-C99: define manually */
+  #ifndef FALSE
+  #define FALSE 0
+  #endif
+  #ifndef TRUE
+  #define TRUE 1
+  #endif
+  typedef int bool;
+#endif
 
 #define NOTDEF         -1024.0
 #define M_3_2_PI       4.71238898038
