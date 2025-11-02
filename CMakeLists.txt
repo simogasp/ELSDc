@@ -133,7 +133,7 @@ target_include_directories(elsdc PUBLIC
     $<BUILD_INTERFACE:${ELSDC_generated_dir}>
     $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(elsdc PRIVATE LAPACK::LAPACK)
+target_link_libraries(elsdc PUBLIC LAPACK::LAPACK)
 target_compile_features(elsdc PRIVATE ${ELSDC_C_FEATURE})
 target_compile_definitions(elsdc PRIVATE ${ELSDC_COMPILE_DEFINITIONS})
 target_compile_options(elsdc PRIVATE ${ELSDC_COMPILE_OPTIONS})
@@ -147,7 +147,7 @@ add_library(${ELSDC_namespace}elsdc ALIAS elsdc)
 
 if(ELSDC_BUILD_APP)
     add_executable(elsdc_main src/main.c)
-    target_link_libraries(elsdc_main PRIVATE elsdc)
+    target_link_libraries(elsdc_main PRIVATE elsdc )
     target_compile_features(elsdc_main PRIVATE ${ELSDC_C_FEATURE})
     target_compile_definitions(elsdc_main PRIVATE ${ELSDC_COMPILE_DEFINITIONS})
     target_compile_options(elsdc_main PRIVATE ${ELSDC_COMPILE_OPTIONS})
