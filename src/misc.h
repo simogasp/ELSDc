@@ -71,7 +71,7 @@
   typedef int bool;
 #endif
 
-#define NOTDEF         -1024.0
+#define NOTDEF         (-1024.0)
 #define M_3_2_PI       4.71238898038
 #define M_1_2_PI       1.57079632679
 #define M_2__PI        6.28318530718
