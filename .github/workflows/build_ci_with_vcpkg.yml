@@ -62,6 +62,7 @@ jobs:
       with:
         configurePreset: 'vcpkg-release'
         buildPreset: 'vcpkg-release'
+        buildPresetAdditionalArgs: "['-t install']"
 #        testPreset: 'vcpkg-release'
 
     - name: Build (Debug)
@@ -69,4 +70,5 @@ jobs:
       with:
         configurePreset: 'vcpkg-debug'
         buildPreset: 'vcpkg-debug'
+        buildPresetAdditionalArgs: "['-t install']"
 #        testPreset: 'vcpkg-debug'
